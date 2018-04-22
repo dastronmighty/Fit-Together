@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta lang="en">
+    <meta name="viewport" content="widtgh=device-width, initial-scale=1">
+
+    <title>Get Fit</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="stylesheets/master.css">
+    <link rel="stylesheet" href="stylesheets/landing.css">
+
+
+  </head>
+  <body>
+
+    <header>
+
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">FitTogether</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="/home">Home</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if (user) { %>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              <% } else { %>
+                <li><a href="/register"><span class="glyphicon glyphicon-plus"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <% }%>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    </header>
+
+    <div class="bg">
+
+      <div class="caption">
+        <span class="border">
+          <a href="#info">Welcome</a>
+        </span>
+      </div>
+
+    </div>
+
+    <div id="info" class="container">
+
+      <center><h1>A new way of keeping fit</h1></center>
+
+      <section>
+        <h3>Our Service</h3>
+        <p>
+          Our site provides a hub for fitness clubs/groups.<br>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,<br>
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </section>
+
+      <section>
+        <h3>Why Use Us?</h3>
+        <p>
+          Our service is free to use and was designed with a mobile first approach.<br>
+        </p>
+        <ul>
+          <li>We have the most club/groups using our service</li>
+          <li>We provide you with a concise timetable showing you where and when your activities are.</li>
+          <li>We have a vast userbase</li>
+          <li>We are available in any region of the world</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>So Join Now!</h3>
+        <ul>
+          <li> <a href="#">Gain access now</a> </li>
+          <li> <a href="#">Browse site first</a> </li>
+        </ul>
+      </section>
+
+    </div>
+
+    <footer>
+      <div class="footer">
+        <p>FitTogether 2018 Created By Eoghan Hogan</p>
+      </div>
+    </footer>
+
+
+    <script type="text/javascript" src="scripts/landing.js"></script>
+
+  </body>
+</html>

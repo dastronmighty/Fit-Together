@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta lang="en">
+    <meta name="viewport" content="widtgh=device-width, initial-scale=1">
+
+    <title>About</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="stylesheets/master.css">
+    <link rel="stylesheet" href="stylesheets/landing.css">
+
+  </head>
+
+  <body>
+
+    <header>
+
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">FitTogether</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="/home">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <% if (user) { %>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>My Home</a></li>
+              <% } %>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if (user) { %>
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+              <% } else { %>
+                <li><a href="/register"><span class="glyphicon glyphicon-plus"></span> Register</a></li>
+                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <% }%>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    </header>
+
+    <footer>
+      <div class="footer">
+        <p>FitTogether 2018 Created By Eoghan Hogan</p>
+      </div>
+    </footer>
+
+  </body>
+</html>

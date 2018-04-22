@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta lang="en">
+    <meta name="viewport" content="widtgh=device-width, initial-scale=1">
+
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/stylesheets/master.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/home.css" type="text/css">
+
+  </head>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">FitTogether</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <% if (user) { %>
+              <li><a href="/clubs/new">Create Club</a></li>
+              <li><a href="/users/<%= userData._id  %>">My Home</a></li>
+            <% } %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if (user) { %>
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <% } else { %>
+              <li><a href="/register"><span class="glyphicon glyphicon-plus"></span> Register</a></li>
+              <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <% }%>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <center>
+        <h1 id="clubmap">Club Map</h1>
+        <div id="map" style="height: 400px; width: 100%;"></div>
+      </center>
+    </div>
+
+    <footer>
+      <div class="footer">
+        <p>FitTogether 2018 Created By Eoghan Hogan</p>
+      </div>
+    </footer>
+
+    <script type="text/javascript">
+      var clubs = [];
+      <% for (var i = 0; i < clubs.length; i++){ %>
+        var club = {};
+        club.location = {};
+        club.location.latitude = <%= clubs[i].meetups[0].location.latitude %>;
+        club.location.longitude = <%= clubs[i].meetups[0].location.longitude %>;
+        club.description = "<%= clubs[i].description.substring(0, 50) %>";
+        club.name = "<%= clubs[i].name %>";
+        club.members = <%= clubs[i].members.length %>;
+        club.id = "<%= clubs[i]._id %>";
+        clubs.push(club);
+      <%}%>
+      function initMap() {
+        var uluru = {lat: 0, lng: 0};
+        if (<%= user%>) {
+          uluru = {
+            lat: <%=userData.location.latitude%>,
+            lng: <%=userData.location.longitude%>
+          }
+        }else{
+          uluru = {
+            lat: 53.3469269,
+            lng: -6.2677338
+          }
+        }
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: uluru
+        });
+        var clubContent = [];
+        for (var i = 0; i < clubs.length; i++) {
+          var contentString = "";
+          contentString += ( "<div class="+'"clubContent"'+"><h1>"+clubs[i].name+"</h1>" );
+          contentString += ( "<p> Description: <br>"+clubs[i].description+"...</p>" );
+          contentString += ( "<a href="+'"'+"/clubs/"+clubs[i].id+'" > Checkout! </a></div>' );
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          console.log(infowindow);
+          clubContent.push(infowindow);
+        }
+
+        console.log(clubContent);
+
+        var markers = [];
+        for (let i = 0; i < clubs.length; i++){
+          var marker = new google.maps.Marker({
+            position: {
+              lat: clubs[i].location.latitude,
+              lng: clubs[i].location.longitude
+            },
+            map: map,
+            title: clubs[i].name,
+            clubContent: clubContent[i]
+          });
+
+          markers.push(marker);
+
+        }
+
+        for(let i=0; i< markers.length; i++) {
+           (function(index) {
+              markers[index].addListener("click", function() {
+                 markers[index].clubContent.open(markers[index].map, markers[index]);
+               });
+           })(i);
+        }
+      }
+
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDP58C-HPFfTe5roxhSnmZmgy5zZNcYnw4&callback=initMap">
+    </script>
+
+    <script type="text/javascript" src="/scripts/master.js"></script>
+    <script type="text/javascript" src="/scripts/home.js"></script>
+
+
+  </body>
+</html>

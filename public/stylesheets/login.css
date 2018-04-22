@@ -1,0 +1,26 @@
+
+body{
+  padding: 10px;
+  background-color: #333;
+}
+
+.login{
+  color: #7FDBFF;
+}
+
+button {
+  color: black;
+}
+
+input{
+  color: black;
+}
+
+.login a {
+  border: 1px solid black;
+  color: #7FDBFF;
+}
+
+.login a:hover {
+ color: white;
+}
