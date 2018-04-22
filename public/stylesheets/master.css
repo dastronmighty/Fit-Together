@@ -20,6 +20,15 @@ body, html {
   color: white !important;
 }
 
+.otherLink {
+  color:#7FDBFF !important;
+}
+
+.otherLink:hover{
+  color: red !important;
+}
+
+
 .footer {
     left: 0;
     width: 100%;

@@ -52,6 +52,7 @@ var mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost/fit_together");
 //</mongoose>
 
+
 //any route we havent defined
 app.get("*", function(req, res){
   res.render("misc/pagenotfound");

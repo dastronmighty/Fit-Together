@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+ 
 var clubSchema = new mongoose.Schema({
   name: String,
   description: String,
