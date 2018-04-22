@@ -33,21 +33,6 @@ router.get("/:id", function(req, res){
   });
 });
 
-router.get("/:id/edit", isLoggedIn, function(req, res){
-  ClubModel.findById(req.params.id, function(err, club){
-    if (err) {
-      res.redirect("/home");
-      console.log(err);
-    }else{
-      if (club.creator == req.user.id) {
-        res.render("clubs/edit", {club: club});
-      }else{
-        res.redirect("/home");
-      }
-    }
-  });
-});
-
 router.get("/add/:id", isLoggedIn, function(req, res){
   ClubModel.findById(req.params.id, function(err, club){
     if (err) {
