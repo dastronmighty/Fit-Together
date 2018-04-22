@@ -8,6 +8,7 @@ var router = express.Router();
 //root route
 router.get("/", function(req, res){
   if (req.isAuthenticated()) {
+    //render the logged in landing page
     res.render("misc/landing", {  user: true, userData: req.user });
   }else{
     fakedata = {
@@ -17,6 +18,7 @@ router.get("/", function(req, res){
         longitude: 0
       }
     };
+    //send the user the landing page
     res.render("misc/landing", {  user: false, userData: fakedata });
   }
 });
@@ -49,8 +51,11 @@ router.get("/home", function(req, res){
   });
 });
 
+
+//send user the about page
 router.get("/about", function(req, res){
   if (req.isAuthenticated()) {
+    //send this if they are logged in
     res.render("misc/about", {  user: true, userData: req.user });
   }else{
     fakedata = {

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
- 
+
+//user model
 var clubSchema = new mongoose.Schema({
   name: String,
   description: String,

@@ -6,11 +6,14 @@ var UserModel = require("./../models/user");
 
 var router = express.Router();
 
+//send the user the create new club page
 router.get("/new", isLoggedIn, function(req, res){
   res.render("clubs/new", {user: req.user});
 });
 
+//send the user the show single club page
 router.get("/:id", function(req, res){
+  //find club
   ClubModel.findById(req.params.id).populate("members").exec(function(err, club){
     if (err) {
       console.log(err);
@@ -33,17 +36,21 @@ router.get("/:id", function(req, res){
   });
 });
 
+//add the club to the users clubs
 router.get("/add/:id", isLoggedIn, function(req, res){
+  //find club
   ClubModel.findById(req.params.id, function(err, club){
     if (err) {
       console.log(err);
       res.redirect("/home");
     } else {
+      //find user
       UserModel.findById(req.user.id, function(err, user){
         if (err) {
           console.log(err);
           res.redirect("/home");
         } else {
+          //check if the user is already in the club
           var isIn = false;
           for (var i = 0; i < user.clubs.length; i++) {
             if (club._id.toString() === user.clubs[i].toString()) {
@@ -51,6 +58,7 @@ router.get("/add/:id", isLoggedIn, function(req, res){
             }
           }
           if (!isIn) {
+            //add club to the users club
             club.members.push(req.user.id);
             club.save();
             user.clubs.push(club);
@@ -63,6 +71,7 @@ router.get("/add/:id", isLoggedIn, function(req, res){
   });
 });
 
+//handle adding new club to db
 router.post("/", isLoggedIn, function(req, res){
   //<===FIND=CO-ORDINATES===>
   var address = "";
@@ -76,6 +85,7 @@ router.post("/", isLoggedIn, function(req, res){
     }
   }
   address = address.substring(0, (address.length - 1));
+  //find coordinates from address
   request("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=AIzaSyDP58C-HPFfTe5roxhSnmZmgy5zZNcYnw4",
   function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -95,6 +105,7 @@ router.post("/", isLoggedIn, function(req, res){
             longitude: lng
           }
       };
+      //create a new club
       var newClub = new ClubModel({
         name: req.body.name
       });
@@ -104,14 +115,17 @@ router.post("/", isLoggedIn, function(req, res){
       newClub.description = description;
       newClub.thumbnail = req.body.thumbnail;
       newClub.meetups.push(meetup);
+      //add newclub to database
       ClubModel.create(newClub, function(err, ret){
         if (err){
           console.log(err);
           res.redirect("/clubs/new");
         }else{
+          //add the creator as a member
           UserModel.findById(req.user.id, function(err, user){
             user.clubs.push(ret._id);
             user.save();
+            //redirect the user home
             res.redirect("/home");
           });
         }
@@ -122,6 +136,7 @@ router.post("/", isLoggedIn, function(req, res){
   });
 });
 
+//check if the user is logged in 
 function isLoggedIn(req, res, next){
   if(req.isAuthenticated()){
     return next();
